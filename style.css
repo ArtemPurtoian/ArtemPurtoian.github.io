@@ -1,0 +1,71 @@
+body {
+    background: linear-gradient(#7a4dce, #c31a33);
+}
+
+img {    
+    animation: glowMagenta 2s ease-in-out infinite;
+}
+
+h1 {
+    font-family: Garamond, serif;
+    font-size: 150%;
+    color: #00f2ff;    
+    animation: glowBlue 2s ease-in-out infinite;
+}
+
+p {
+    font-family: Garamond, serif;
+    font-size: 150%;
+    color: #ff7b00;
+	text-shadow: 0 0 20px rgba(255, 123, 0, 0.8);	
+}
+
+.colortext {
+    font-style: italic;
+    font-weight: 600;
+    color: #1ef742;    
+    animation: glowGreen 2s ease-in-out infinite;
+}
+
+.anchor {
+	font-family: Garamond, serif;
+    font-size: 100%;
+    color: #ff7b00;	
+	animation: glowOrange 2s ease-in-out infinite;
+}
+
+@keyframes glowMagenta {
+    0%, 100% {
+        box-shadow: 0 0 80px rgba(255, 0, 255, 0.8);
+    }
+    50% {
+        box-shadow: none;
+    }
+}
+
+@keyframes glowBlue {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(0, 242, 255, 0.8);
+    }
+    50% {
+        text-shadow: none;
+    }
+}
+
+@keyframes glowGreen {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(30, 247, 66, 0.8);
+    }
+    50% {
+        text-shadow: none;
+    }
+}
+
+@keyframes glowOrange {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(255, 123, 0, 0.8);
+    }
+    50% {
+        text-shadow: none;
+    }
+}
