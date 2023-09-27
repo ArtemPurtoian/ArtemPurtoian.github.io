@@ -9,15 +9,15 @@ img {
 h1 {
     font-family: Garamond, serif;
     font-size: 150%;
-    color: #00f2ff;    
-    animation: glowBlue 2s ease-in-out infinite;
+    color: #ff7b00;
+    animation: glowOrange 2s ease-in-out infinite;
 }
 
 p {
     font-family: Garamond, serif;
     font-size: 150%;
-    color: #ff7b00;
-	text-shadow: 0 0 20px rgba(255, 123, 0, 0.8);	
+    color: #00f2ff;
+	text-shadow: 0 0 20px rgba(0, 242, 255, 0.8);	
 }
 
 .colortext {
@@ -30,8 +30,8 @@ p {
 .anchor {
 	font-family: Garamond, serif;
     font-size: 100%;
-    color: #ff7b00;	
-	animation: glowOrange 2s ease-in-out infinite;
+    color: #00f2ff;	
+	animation: glowBlue 2s ease-in-out infinite;
 }
 
 @keyframes glowMagenta {
