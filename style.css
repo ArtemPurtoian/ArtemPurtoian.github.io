@@ -1,69 +1,54 @@
 body {
-    background: linear-gradient(#7a4dce, #c31a33);
+    background: linear-gradient(#0066ff, #0000ff, #6600ff);
 }
 
-img {    
-    animation: glowMagenta 2s ease-in-out infinite;
+img {
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 1);;    
 }
 
 h1 {
     font-family: Garamond, serif;
     font-size: 150%;
+    color: #1ef742;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
+}
+
+h2 {
+    font-family: "Garamond", serif;
+    font-size: 130%;
+    font-style: italic;
     color: #ff7b00;
-    animation: glowOrange 2s ease-in-out infinite;
+    text-shadow: 
+      2px 2px 5px rgba(0, 0, 0, 1),
+      4px 4px 10px rgba(0, 0, 0, 1);
 }
 
 p {
     font-family: Garamond, serif;
-    font-size: 150%;
+    font-size: 125%;
     color: #00f2ff;
-	text-shadow: 0 0 20px rgba(0, 242, 255, 0.8);	
 }
 
-.colortext {
+.contacts {
+    font-size: 125%;
     font-style: italic;
-    font-weight: 600;
-    color: #1ef742;    
-    animation: glowGreen 2s ease-in-out infinite;
+    color: #1ef742;
+    text-shadow: 
+      2px 2px 5px rgba(0, 0, 0, 1),
+      4px 4px 10px rgba(0, 0, 0, 1);
 }
 
 .anchor {
 	font-family: Garamond, serif;
-    font-size: 100%;
+    font-size: 125%;
     color: #00f2ff;	
 	animation: glowBlue 2s ease-in-out infinite;
 }
 
-@keyframes glowMagenta {
-    0%, 100% {
-        box-shadow: 0 0 80px rgba(255, 0, 255, 0.8);
-    }
-    50% {
-        box-shadow: none;
-    }
-}
-
 @keyframes glowBlue {
     0%, 100% {
-        text-shadow: 0 0 20px rgba(0, 242, 255, 0.8);
-    }
-    50% {
-        text-shadow: none;
-    }
-}
-
-@keyframes glowGreen {
-    0%, 100% {
-        text-shadow: 0 0 20px rgba(30, 247, 66, 0.8);
-    }
-    50% {
-        text-shadow: none;
-    }
-}
-
-@keyframes glowOrange {
-    0%, 100% {
-        text-shadow: 0 0 20px rgba(255, 123, 0, 0.8);
+        text-shadow: 0 0 10px rgba(0, 255, 255, 1);
     }
     50% {
         text-shadow: none;
