@@ -1,0 +1,60 @@
+body {
+      margin: 0;
+      background: #0a0a0a;
+      color: #00ffff;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .terminal {
+      background: #111;
+      width: 90%;
+      max-width: 850px;
+      height: 95vh;
+      border: 2px solid #ff00ff;
+      box-shadow: 0 0 25px #00ffff, inset 0 0 15px #ff00ff;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .line {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .prompt {
+      color: #ff00ff;
+    }
+
+    .input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #00ffff;
+      font-family: inherit;
+      font-size: 1rem;
+      flex: 1;
+    }
+
+    .output {
+      margin: 6px 0;
+      white-space: pre-wrap;
+    }
+
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    a {
+      color: #ff00ff;
+      text-decoration: none;
+    }
+
+    code {
+      color: #00ff99;
+    }
