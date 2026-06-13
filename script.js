@@ -27,8 +27,8 @@ async function runBootSequence() {
   await delay(300);
 
   // Render the initial welcome messages
-  addLine("Welcome!");
-  addLine('Type <code>help</code> to list commands.');
+  addLine("Welcome to my interactive CV!");
+  addLine('Type <code>help</code> to see a list of commands and learn more about me😊');
 
   // Reveal the command line prompt and transfer focus to the input field
   inputLine.style.display = 'flex';
