@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Command line CV - Artem Purtoian</title>
+  <title>Command Line Interface CV - Artem Purtoian</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css">
   <style>@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');</style>
 </head>
 <body>
   <div class="terminal" id="terminal">
-    <div class="output">Command line CV: Artem Purtoian</div>
-    <div class="output">Type <code>help</code> to list commands.</div>
-    <div class="line">
-      <span class="prompt">[artem@cv]$&nbsp;</span>
-      <input type="text" class="input" autofocus id="input">
+    <div id="history">
+      </div>
+
+    <div class="line" id="input-line" style="display: none;">
+      <span class="prompt">[artem.purtoian@cv]$&nbsp;</span>
+      <input type="text" class="input" autofocus id="input" autocomplete="off" spellcheck="false">
     </div>
   </div>
   <script src="script.js"></script>

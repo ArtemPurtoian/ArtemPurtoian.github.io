@@ -1,108 +1,183 @@
+// DOM Element References
 const input = document.getElementById('input');
 const terminal = document.getElementById('terminal');
+const inputLine = document.getElementById('input-line');
+const historyContainer = document.getElementById('history');
 
+// Helper function to create a delay (in milliseconds) using Promises
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+/**
+ * Simulates a terminal boot sequence with an animated ellipsis
+ */
+async function runBootSequence() {
+  // Создаем элемент для текста загрузки
+  const loaderDiv = document.createElement('div');
+  loaderDiv.className = 'output';
+  loaderDiv.textContent = 'Entering command line';
+  historyContainer.appendChild(loaderDiv);
+
+  // Append 3 dots sequentially with a 300ms delay between each
+  for (let i = 0; i < 3; i++) {
+    await delay(300);
+    loaderDiv.textContent += '.';
+  }
+
+  // Short pause after the final dot for a smoother visual transition
+  await delay(300);
+
+  // Render the initial welcome messages
+  addLine("Welcome!");
+  addLine('Type <code>help</code> to list commands.');
+
+  // Reveal the command line prompt and transfer focus to the input field
+  inputLine.style.display = 'flex';
+  input.focus();
+}
+
+// Initialize the boot sequence immediately upon script load
+runBootSequence();
+
+// Command history tracking
+const commandHistory = [];
+let historyIndex = -1;
+
+// Command registry containing data arrays for terminal output
 const commands = {
   help: [
     "Available commands:",
-    "about       - Short summary",
+    "info        - Short summary",
     "exp         - Work history",
-    "skill       - Tech stack",
+    "skills      - Tech stack",
     "edu         - Education",
     "cert        - Certifications",
-    "contact     - How to reach me",
-    "clear       - Clear screen"
+    "contact     - Contact me",
+    "clear       - Clear terminal"
   ],
-  about: [
-    "Experienced QA Engineer skilled in Web, API, DB, and Cloud testing,",
-    "with a good understanding of automation tools.",
-    "Clear communicator who works effectively in international teams."
+  info: [
+    "QA Engineer with overall <b>5 years</b> of experience in the following domains:",
+    "<li>E-commerce</li>",
+    "<li>Telecom</li>",
+    "<li>Healthcare/MedTech</li>",
+    "With solid knowledge of QA and test automation processes.",
+    "Confident in evaluating AI LLM outputs."
   ],
   exp: [
-    "- GlobalLogic - Associate Test Engineer, Quality Assurance:",
-    "   Healthcare/MedTech, SaMD - One of the world's largest medical equipment manufacturers.",
-    "   Desktop applications, embedded medical systems and devices, Cloud services.",
-    "- AB Soft - Manual QA Engineer:",
-    "   Telecom, E-commerce - International enterprise cloud-based IP telephony (VoIP) providers.",
-    "   Websites, mobile, desktop and web applications."
+    "<b>GlobalLogic</b> — Test Engineer, QA — Healthcare / MedTech:",
+    "Embedded / Desktop / Cloud – US largest medical equipment manufacturer",
+    "<li>analyzing software requirements and design specifications, implementing traceability matrixes</li>",
+    "<li>collaborating with BAs to translate regulatory requirements into testable technical specifications</li>",
+    "<li>creating, reviewing and approving test documentation; reporting defects and verifying fixes</li>",
+    "<li>performing code inspections, functional, API, integration, and regression testing</li>",
+    "<li>implementing environment maintenance scripts, API and DB test automation with Python</li>",
+    "<li>BLE embedded devices setup and testing, sniffing traffic packets",
+    "<b>Achievements:</b>",
+    "<li>reduced regression time by <b>70%</b>, implementing a Risk-based approach for regulated medical devices</li>",
+    "<br>",
+    "<b>AB Soft</b> — Manual QA Engineer — Telecom / E-commerce:",
+    "Web / Mobile / Desktop – world leader in enterprise cloud VoIP solutions",
+    "<li>performed static analysis, functional, UI, API, integration, and regression testing</li>",
+    "<li>performed Defect Escape Analysis and post-release verifications</li>",
+    "<li>validated integrations between web, desktop, and SIP devices</li>",
+    "<li>analyzed Kibana and Linux server logs</li>",
+    "<b>Achievements:</b>",
+    "<li>developed a unified Postman collection for a team of <b>30+ engineers</b>, accelerating API testing for 3 core products;</li>",
+    "<li>redesigned <b>2000+ test cases</b></li>"
   ],
-  skill: [
-    "- Postman, BurpSuite - RESTful API testing.",
-    "- SQL - data manipulation, data types definition, database design, backup, creating triggers,",
-    "  views, stored procedures. Familiar with SQL functions, operators, constraints and keys (MySQL,",
-    "  Oracle SQL Developer).",
-    "- NoSQL - MongoDB.",
-    "- Linux - CLI, logs analysis.",
-    "- Cloud & integrations - AWS (Lambda, S3, CloudWatch), Kafka (Producers, Consumers, Topics).",
-    "- Android SDK - basic adb commands, Android Studio emulators.",
-    "- Programming languages - Python - primary for automation, Ruby, basic JavaScript.",
-    "- Test Automation - Pytest, Playwright, Robot, RSpec, Watir - able to maintain and extend existing",
-    "  frameworks with functional and regression scripts.",
-    "- Version control & CI/CD - Git, GitHub, GitLab; familiar with triggers, pipelines, builds.",
-    "- Project/defect management - Jira."
-],
+  skills: [
+    "<li><b>Testing:</b> Static, Code Inspections, Functional, Integration, Risk-based, Regression</li>",
+    "<li><b>API:</b> Web – REST, GraphQL, Websockets; Embedded – BLE</li>",
+    "<li><b>Healthcare compliance standards:</b> HIPAA, familiar with FHIR, HL7</li>",
+    "<li><b>Databases:</b> Relational (MySQL, Oracle SQL Developer); NoSQL (MongoDB)</li>",
+    "<li><b>SQL:</b> data manipulation and definition, DB design and backup</li>",
+    "<li><b>Cloud & Integrations:</b> AWS (Lambda, S3, CloudWatch), Kafka</li>",
+    "<li><b>Mobile testing:</b> ADB, Android Studio emulators, iOS real devices</li>",
+    "<li><b>Programming languages:</b> Python</li>",
+    "<li><b>Test Automation:</b> Pytest, Playwright, Robot</li>",
+    "<li><b>AI LLMs:</b> confident in validating outputs for business needs (Gemini, ChatGPT)</li>",
+    "<li><b>Version control & CI:</b> Git, TeamCity</li>"
+  ],
   edu: [
-    "Odesa State Academy of Civil Engineering and Architecture: B.Sc. Construction (2014)",
-    "Saint George Theological University: Philosophy, Theology, Exegesis, Hermeneutics (2017)"
+    "<li>Odesa State Academy of Civil Engineering and Architecture: B.Sc. Construction (2014)</li>",
+    "<li>Saint George Theological University: Philosophy, Theology, Exegesis, Hermeneutics (2017)</li>"
   ],
   cert: [
-    '<span>Hillel IT School - </span><a href="https://certificate.ithillel.ua/view/66226705" target="_blank">>> QA Manual (2021) <<</a>',
-    '<span>Hillel IT School - </span><a href="https://certificate.ithillel.ua/view/47096727" target="_blank">>> QA Automation Python (2023) <<</a>',
-    '<span>W3Schools - </span><a href="https://verify.w3schools.com/1P1MHB80Z7" target="_blank">>> SQL Developer (2024) <<</a>'
+    '<li><a href="https://certificate.ithillel.ua/view/66226705" target="_blank">>> QA Manual (2021) <<</a><span> Hillel IT School</span></li>',
+    '<li><a href="https://certificate.ithillel.ua/view/47096727" target="_blank">>> QA Automation Python (2023) <<</a><span> Hillel IT School</span></li>',
+    '<li><a href="https://verify.w3schools.com/1P1MHB80Z7" target="_blank">>> SQL Developer (2024) <<</a><span> W3Schools</span></li>'
   ],
   contact: [
-    '<span>Email: </span><a href="mailto:artemios.od@gmail.com" target="_blank">artemios.od@gmail.com</a>',
-    '<span>LinkedIn: </span><a href="https://linkedin.com/in/artem-purtoian" target="_blank">Artem Purtoian</a>',
-    '<span>GitHub: </span><a href="https://github.com/ArtemPurtoian?tab=repositories" target="_blank">ArtemPurtoian</a>'
+    '<li><span>Email: </span><a href="mailto:artemios.od@gmail.com" target="_blank">artemios.od@gmail.com</a></li>',
+    '<li><span>LinkedIn: </span><a href="https://linkedin.com/in/artem-purtoian" target="_blank">Artem Purtoian</a></li>',
+    '<li><span>GitHub: </span><a href="https://github.com/ArtemPurtoian?tab=repositories" target="_blank">ArtemPurtoian</a></li>'
   ],
 };
 
-input.addEventListener('keydown', handleInputKeydown);
+// Global click event to restore focus to the input field whenever the terminal area is clicked
+terminal.addEventListener('click', () => input.focus());
 
-function handleInputKeydown(event) {
+// Keydown event listener handling input submission and history navigation
+input.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
-	  const command = event.target.value.trim();
-	if (command) {
-	  addLine(`[artem@cv]$ ${command}`);
-	  runCommand(command);
-	  event.target.value = '';
-	  scrollToBottom();
-	}
-  }
-}
+    const rawInput = event.target.value;
+    const command = rawInput.trim().toLowerCase();
 
+    if (rawInput.trim()) {
+      // Echo the executed command back to the terminal layout, preserving original case
+      addLine(`[artem.purtoian@cv]$ ${rawInput}`, 'prompt-echo');
+
+      // Append the command to tracking arrays and reset the history traversal pointer
+      commandHistory.push(rawInput.trim());
+      historyIndex = commandHistory.length;
+
+      runCommand(command);
+    }
+
+    // Reset input state and enforce bottom alignment scrolling
+    event.target.value = '';
+    scrollToBottom();
+  }
+  // Navigate history backwards (Arrow Up)
+  else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    if (historyIndex > 0) {
+      historyIndex--;
+      event.target.value = commandHistory[historyIndex];
+    }
+  }
+  // Navigate history forwards (Arrow Down)
+  else if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    if (historyIndex < commandHistory.length - 1) {
+      historyIndex++;
+      event.target.value = commandHistory[historyIndex];
+    } else {
+      historyIndex = commandHistory.length;
+      event.target.value = ''; // Reset to blank input if passing the latest entry
+    }
+  }
+});
+
+// Router evaluating and rendering command outputs
 function runCommand(cmd) {
   if (cmd === 'clear') {
-    resetTerminal();
+    historyContainer.innerHTML = '';
   } else if (commands[cmd]) {
     commands[cmd].forEach(line => addLine(line));
   } else {
-    addLine(`Command not found: ${cmd}`);
+    addLine(`${cmd} - command not found. Type <code>help</code> for available commands.`);
   }
 }
 
-function addLine(text) {
+// Appends a new text element into the historical container block
+function addLine(text, customClass = '') {
   const div = document.createElement('div');
-  div.className = 'output';
+  div.className = `output ${customClass}`;
   div.innerHTML = text;
-  terminal.insertBefore(div, terminal.querySelector('.line'));
+  historyContainer.appendChild(div);
 }
 
+// Forces the terminal scrolling wrapper layout down to the absolute bottom line
 function scrollToBottom() {
   terminal.scrollTop = terminal.scrollHeight;
-}
-	
-function resetTerminal() {
-  terminal.innerHTML = `
-	<div class="output">Command line CV: Artem Purtoian</div>
-	<div class="output">Type <code>help</code> to list commands.</div>
-	<div class="line">
-	  <span class="prompt">[artem@cv]$&nbsp;</span>
-	  <input type="text" class="input" autofocus id="input">
-	</div>
-  `;
-
-  const newInput = document.getElementById('input');
-  newInput.addEventListener('keydown', handleInputKeydown);
-  newInput.focus();
-  input = newInput;
 }

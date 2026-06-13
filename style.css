@@ -45,6 +45,12 @@ body {
       white-space: pre-wrap;
     }
 
+    .output li {
+        list-style-type: "* ";
+        margin-left: 20px; /* Отступ слева для всего списка */
+        padding-left: 5px; /* Зазор между звездочкой и текстом */
+    }
+
 
     @keyframes blink {
       50% { opacity: 0; }
@@ -57,4 +63,8 @@ body {
 
     code {
       color: #00ff99;
+    }
+
+    .prompt-echo {
+    color: #ff00ff; /* Цвет промпта, чтобы выделять введённые команды */
     }
